@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getAll(){
+    public List<User> getAllJournalEntriesOfUser(){
         return userService.getAll();
     }
 
