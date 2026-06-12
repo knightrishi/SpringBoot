@@ -18,10 +18,18 @@ public class JournalEntryService {
     @Autowired
     private UserService userService;
 
-    public void save(JournalEntry journalEntry, String username) {
+    public void saveEntry(JournalEntry journalEntry, String username) {
         User user = userService.findByUsername(username);
+        JournalEntry save = journalEntryRepository.save(journalEntry);
+        user.getJournalEntries().add(save);
+        userService.saveEntry(user);
+    }
+
+    public void saveEntry(JournalEntry journalEntry) {
         journalEntryRepository.save(journalEntry);
     }
+
+
     public List<JournalEntry> getAll() {
             return journalEntryRepository.findAll();
     }
@@ -29,7 +37,11 @@ public class JournalEntryService {
         return journalEntryRepository.findById(id);
     }
 
-    public void deleteById(ObjectId id){
+    public void deleteById(ObjectId id, String username){
+        User user = userService.findByUsername(username);
+        user.getJournalEntries().removeIf(x->x.getId().equals(id));
+        userService.saveEntry(user);
+
          journalEntryRepository.deleteById(id);
     }
 }
