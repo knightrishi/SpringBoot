@@ -22,3 +22,11 @@ public class JournalApplication {
 	}
 
 }
+/*
+Mongo Atlas
+Username
+arnavara05_db_user
+Password
+
+ne94OyASMr8rZDar
+ */
